@@ -54,6 +54,17 @@ cmake-build-*/
 # IntelliJ
 out/
 
+### VisualStudioCode ###
+.vscode/*
+!.vscode/tasks.json
+!.vscode/launch.json
+*.code-workspace
+
+### VisualStudioCode Patch ###
+# Ignore all local history of files
+.history
+.ionide
+
 # mpeltonen/sbt-idea plugin
 .idea_modules/
 
@@ -104,5 +115,13 @@ fabric.properties
 # CodeStream plugin
 # https://plugins.jetbrains.com/plugin/12206-codestream
 .idea/codestream.xml
+
+### Vuejs ###
+# Recommended template: Node.gitignore
+
+node_modules/
+dist/
+npm-debug.log
+yarn-error.log
 
 # End of https://www.toptal.com/developers/gitignore/api/jetbrains
