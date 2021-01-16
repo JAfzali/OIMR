@@ -16,50 +16,7 @@
               </v-list-item-content>
             </v-list-item>
             <v-divider></v-divider>
-            <v-row align="center" justify="space-around">
-              <v-btn
-                :loading="recpdfload"
-                depressed
-                color="white"
-                block
-                @click="getReceivedPDF"
-              >
-                Receive
-              </v-btn>
-              <v-btn
-                :loading="orderpdfload"
-                depressed
-                color="white"
-                block
-                @click="getOrderPDF"
-              >
-                Order Confirmation
-              </v-btn>
-              <v-btn depressed color="white" block @click="getCOC_MC">
-                COC Machining
-              </v-btn>
-              <v-btn depressed color="white" block @click="getCOC_HB">
-                COC Hardbanding
-              </v-btn>
-              <v-btn
-                :loading="preinvpdfload"
-                depressed
-                color="white"
-                block
-                @click="getPreinvPDF"
-              >
-                Pre Invoice
-              </v-btn>
-              <v-btn
-                :loading="insprepload"
-                depressed
-                color="white"
-                block
-                @click="getInspRepPDF"
-              >
-                Inspection Report
-              </v-btn>
-            </v-row>
+            <pdf_menu :currentOrdernr="currentOrdernr" :currentrec="currentrec" :currentCOCHB="currentCOCHB" :currentCOCMC="currentCOCMC"></pdf_menu>
           </v-card>
         </v-dialog>
       </v-card>
@@ -100,8 +57,10 @@
 <script>
 import { mapGetters } from "vuex";
 import axios from "axios";
+import pdf_menu from '@/components/order_pdf_menu.vue'
 export default {
   name: "orderconfirm",
+  components: { pdf_menu },
   data() {
     return {
       selected: ["completed", "ongoing"],
@@ -111,7 +70,7 @@ export default {
       currentrec: "",
       currentOrdernr: "",
       currentCOCHB: "",
-      currentCOMC: "",
+      currentCOCMC: "",
       dialog: false,
       loading: false,
       orderpdfload: false,

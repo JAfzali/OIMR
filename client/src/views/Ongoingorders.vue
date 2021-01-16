@@ -23,7 +23,9 @@
     <v-row class="white">
       <v-col cols="6">
         <v-card class="pa-10" outlined tile>
-          <h2>Orders</h2>
+          <v-card to="/orderconfirm"  elevation="0">
+            <h2>Orders</h2>
+          </v-card>
           <br />
           <v-data-table
             to="/orderconfirm"
