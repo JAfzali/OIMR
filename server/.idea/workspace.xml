@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d9d3c393-3444-49b0-9977-8a33ab7078a0" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/OrderRegister/order_db.py" beforeDir="false" afterPath="$PROJECT_DIR$/OrderRegister/order_db.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/env/" />
     <ignored path="$PROJECT_DIR$/venv/" />
@@ -18,7 +18,7 @@
         <entry file="file://$PROJECT_DIR$/Delivery/delivery_db.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="-1162">
-              <caret line="3" column="53" lean-forward="true" selection-start-line="3" selection-start-column="53" selection-end-line="3" selection-end-column="53" />
+              <caret line="3" column="53" selection-start-line="3" selection-start-column="53" selection-end-line="3" selection-end-column="53" />
               <folding>
                 <element signature="e#0#22#0" expanded="true" />
               </folding>
@@ -30,7 +30,7 @@
         <entry file="file://$PROJECT_DIR$/OrderRegister/order_db.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="127">
-              <caret line="83" column="4" selection-start-line="83" selection-start-column="4" selection-end-line="83" selection-end-column="4" />
+              <caret line="83" selection-start-line="83" selection-end-line="83" />
               <folding>
                 <element signature="e#0#22#0" expanded="true" />
               </folding>
@@ -56,27 +56,13 @@
     <option name="width" value="1920" />
     <option name="height" value="1080" />
   </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="ProjectPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="server" type="b2602c69:ProjectViewProjectNode" />
-              <item name="server" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="server" type="b2602c69:ProjectViewProjectNode" />
-              <item name="server" type="462c0819:PsiDirectoryNode" />
-              <item name="OrderRegister" type="462c0819:PsiDirectoryNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
+      <pane id="ProjectPane" />
       <pane id="Scope" />
     </panes>
   </component>
@@ -111,7 +97,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-1174" y="-1080" width="1920" height="1080" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info id="Favorites" side_tool="true" />
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24960506" />
@@ -143,7 +128,7 @@
     <entry file="file://$PROJECT_DIR$/Delivery/delivery_db.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1162">
-          <caret line="3" column="53" lean-forward="true" selection-start-line="3" selection-start-column="53" selection-end-line="3" selection-end-column="53" />
+          <caret line="3" column="53" selection-start-line="3" selection-start-column="53" selection-end-line="3" selection-end-column="53" />
           <folding>
             <element signature="e#0#22#0" expanded="true" />
           </folding>
@@ -153,7 +138,7 @@
     <entry file="file://$PROJECT_DIR$/OrderRegister/order_db.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="127">
-          <caret line="83" column="4" selection-start-line="83" selection-start-column="4" selection-end-line="83" selection-end-column="4" />
+          <caret line="83" selection-start-line="83" selection-end-line="83" />
           <folding>
             <element signature="e#0#22#0" expanded="true" />
           </folding>
