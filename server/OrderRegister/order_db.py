@@ -81,6 +81,7 @@ def db_getOrderpdf(orderno):
             })
 
 def db_getMachExcel(orderno):
+
     orderDB.conn.layout = 'ODP_Tubular_order_Conformation'
     try:
         orderDB.conn.login()
