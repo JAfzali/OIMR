@@ -1,48 +1,68 @@
 <template>
-  <v-row align="center" justify="space-around">
-    <v-btn
-      :loading="recpdfload"
-      depressed
-      color="white"
-      block
-      @click="getReceivedPDF"
-    >
-      Receive
-    </v-btn>
-    <v-btn
-      :loading="orderpdfload"
-      depressed
-      color="white"
-      block
-      @click="getOrderPDF"
-    >
-      Order Confirmation
-    </v-btn>
-    <v-btn depressed color="white" block @click="getCOC_MC">
-      COC Machining
-    </v-btn>
-    <v-btn depressed color="white" block @click="getCOC_HB">
-      COC Hardbanding
-    </v-btn>
-    <v-btn
-      :loading="preinvpdfload"
-      depressed
-      color="white"
-      block
-      @click="getPreinvPDF"
-    >
-      Pre Invoice
-    </v-btn>
-    <v-btn
-      :loading="insprepload"
-      depressed
-      color="white"
-      block
-      @click="getInspRepPDF"
-    >
-      Inspection Report
-    </v-btn>
-  </v-row>
+    <v-dialog v-model="dialog" width="350">
+      <v-card>
+        <v-list-item two-line class="light-blue lighten-4">
+          <v-list-item-content>
+            <v-list-item-title class="headline"></v-list-item-title>
+            <v-list-item-subtitle>Order Numbers</v-list-item-subtitle>
+            <v-list-item-title class="headline">{{
+                currentOrdernr
+              }}</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+        <v-divider></v-divider>
+        <div :class="padding_class">
+          <v-btn
+            :loading="recpdfload"
+            depressed
+            color="white"
+            block
+            @click="getReceivedPDF"
+          >
+            Receive
+            <v-spacer/>
+          </v-btn>
+          <v-btn
+            :loading="orderpdfload"
+            depressed
+            color="white"
+            block
+            @click="getOrderPDF"
+          >
+            Order Confirmation
+            <v-spacer/>
+          </v-btn>
+          <v-btn depressed color="white" block @click="getCOC_MC">
+            COC Machining
+            <v-spacer/>
+          </v-btn>
+          <v-btn depressed color="white" block @click="getCOC_HB">
+            COC Hardbanding
+            <v-spacer/>
+          </v-btn>
+          <v-btn
+            :loading="preinvpdfload"
+            depressed
+            color="white"
+            block
+            @click="getPreinvPDF"
+          >
+            Pre Invoice
+            <v-spacer/>
+          </v-btn>
+          <v-btn
+            :loading="insprepload"
+            depressed
+            color="white"
+            block
+            @click="getInspRepPDF"
+          >
+            Inspection Report
+            <v-spacer/>
+          </v-btn>
+        </div>
+      </v-card>
+    </v-dialog>
 </template>
 
 <script>
@@ -50,13 +70,19 @@ import axios from 'axios'
 
 export default {
   name: 'pdf_menu',
-  props: ['currentOrdernr', 'currentrec', 'currentCOCHB', 'currentCOCMC'],
+  props: ['currentOrdernr', 'currentrec', 'currentCOCHB', 'currentCOCMC', 'dialog'],
   data() {
     return {
       preinvpdfload: false,
       recpdfload: false,
       orderpdfload: false,
-      insprepload: false
+      insprepload: false,
+      padding_class: 'pl-2'
+    }
+  },
+  watch: {
+    dialog(value) {
+      console.log(value)
     }
   },
   methods: {

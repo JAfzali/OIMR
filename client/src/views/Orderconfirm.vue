@@ -3,23 +3,7 @@
     <v-card-title>
       Orders
       <v-spacer></v-spacer>
-      <v-card class="text-center">
-        <v-dialog v-model="dialog" width="300">
-          <v-card>
-            <v-list-item two-line class="light-blue lighten-4">
-              <v-list-item-content>
-                <v-list-item-title class="headline"></v-list-item-title>
-                <v-list-item-subtitle>Order Number</v-list-item-subtitle>
-                <v-list-item-title class="headline">{{
-                  currentOrdernr
-                }}</v-list-item-title>
-              </v-list-item-content>
-            </v-list-item>
-            <v-divider></v-divider>
-            <pdf_menu :currentOrdernr="currentOrdernr" :currentrec="currentrec" :currentCOCHB="currentCOCHB" :currentCOCMC="currentCOCMC"></pdf_menu>
-          </v-card>
-        </v-dialog>
-      </v-card>
+            <pdf_menu :dialog="dialog" :currentOrdernr="currentOrdernr" :currentrec="currentrec" :currentCOCHB="currentCOCHB" :currentCOCMC="currentCOCMC"></pdf_menu>
       <v-text-field
         v-model="search"
         append-icon="mdi-magnify"
