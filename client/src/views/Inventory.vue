@@ -106,31 +106,31 @@
             <v-container fluid>
               <v-row>
                 <v-col
-                  ><v-card white>
-                    <v-card-subtitle class="text-left"
-                      ><b>Site</b></v-card-subtitle
+                  ><v-card :min-height="header_min_height" dark color="#748cab">
+                    <v-card-subtitle class="text-left text-subtitle-1"
+                      >Site</v-card-subtitle
                     >
-                    <v-card-title class="text-left">{{
+                    <v-card-title class="text-left text-h4">{{
                       rackinfo.Site
                     }}</v-card-title>
                   </v-card>
                 </v-col>
                 <v-col
-                  ><v-card dark color="#204060">
-                    <v-card-subtitle class="text-left"
-                      ><b>Rack</b></v-card-subtitle
+                  ><v-card :min-height="header_min_height" dark color="#3e5c76" >
+                    <v-card-subtitle class="text-left text-subtitle-1"
+                      >Rack</v-card-subtitle
                     >
-                    <v-card-title class="text-left">{{
+                    <v-card-title class="text-left text-h4">{{
                       rackinfo.Rack_ID
                     }}</v-card-title>
                   </v-card>
                 </v-col>
                 <v-col>
-                  <v-card min-height="117" color="white">
+                  <v-card :min-height="header_min_height" dark color="#1d2d44">
                     <v-row dense style="padding-top: 0; padding-bottom: 0;">
                       <v-col style="padding-top: 0; padding-bottom: 0;">
-                        <v-card-subtitle class="text-left">
-                          <b style="color: #204060">Item Number</b>
+                        <v-card-subtitle class="text-left text-subtitle-1">
+                          Item Number
                         </v-card-subtitle>
                       </v-col>
                       <v-col style="padding-top: 0; padding-bottom: 0;">
@@ -446,6 +446,7 @@ export default {
       pipe: {
         backgroundColor: 'pink'
       },
+      header_min_height: 130,
       colormap: '',
       rackinfo: '',
       pipeload: false,
