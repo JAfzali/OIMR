@@ -266,6 +266,42 @@ export default {
     };
   },
   methods: {
+    getdpPDF(item) {
+      console.log(item.Order_No);
+      this.commonload = true;
+      axios
+        .get("/getdpPDF", {
+          params: { orderno: item.Order_No }
+        })
+        .then(response => {
+          this.commonload = false;
+          window.open(response.data.pdflink, "_blank");
+        });
+    },
+    gethwPDF(item) {
+      console.log(item.Order_No);
+      this.commonload = true;
+      axios
+        .get("/gethwPDF", {
+          params: { orderno: item.Order_No }
+        })
+        .then(response => {
+          this.commonload = false;
+          window.open(response.data.pdflink, "_blank");
+        });
+    },
+    getdcPDF(item) {
+      console.log(item.Order_No);
+      this.commonload = true;
+      axios
+        .get("/getdcPDF", {
+          params: { orderno: item.Order_No }
+        })
+        .then(response => {
+          this.commonload = false;
+          window.open(response.data.pdflink, "_blank");
+        });
+    },
     getExcel(item) {
       console.log(item.Order_No);
       this.commonload = true;

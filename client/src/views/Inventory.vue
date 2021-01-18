@@ -156,7 +156,7 @@
                         >
                           <v-tooltip bottom>
                             <template v-slot:activator="{ on }">
-                              <v-icon v-on="on" medium color="black">
+                              <v-icon dark v-on="on" medium>
                                 info
                               </v-icon>
                             </template>
@@ -165,7 +165,7 @@
                               <b>{{value1}}:</b> {{key1}}
                             </div>
                           </v-tooltip>
-                          <span style="color: #204060">{{ value }}</span>
+                          <span>{{ value }}</span>
                           <v-icon small :style="{ color: computeColor(value) }">
                             brightness_1
                           </v-icon>
@@ -647,7 +647,7 @@ export default {
 </script>
 <style>
 .tooltippen {
-  text-align: center;
+  text-align: left;
 }
 .test {
   background-color: aqua;
