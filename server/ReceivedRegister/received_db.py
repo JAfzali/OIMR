@@ -61,7 +61,8 @@ def db_getReceived(username):
             'Location': record.to_dict()['Location'],
             'Item_No': record.to_dict()['Item_No'],
             'Quantity_Tubular': record.to_dict()['Quantity_Tubular'],
-            'Equipment': record.to_dict()['Equipment']
+            'Equipment': record.to_dict()['Equipment'],
+            'Asset': record.to_dict()['Asset']
         }
         liste.append(record_dict)
     return liste

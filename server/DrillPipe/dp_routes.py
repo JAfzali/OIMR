@@ -22,6 +22,8 @@ def getdp():
 @dp.route('/getdpExcel',methods=['GET'])
 def getdpExcel():
     orderno = request.args.get('orderno')
+    test = request.args.get('test')
+    print(test)
     print(orderno)
     info = ddb.db_getdpExcel(orderno)
     return json.dumps(info)

@@ -5,7 +5,6 @@ from Filemaker.connection import Filemaker
 dcDB = Filemaker('ODP_Drill_Collar_Summery')
 
 
-
 def db_getdcPDF(orderno):
     dcDB.conn.layout = 'ODP_Drill_Collar_Summery'
     try:
@@ -70,3 +69,37 @@ def db_getdc(username):
         }
         liste.append(record_dict)
     return liste
+
+def db_getdcExcel(orderno):
+    dcDB.conn.layout = 'ODP_Drill_Collar_Summery'
+    try:
+        dcDB.conn.login()
+        res = dcDB.conn.perform_script('exceldc1', orderno)
+    except Exception as e:
+        print('Error: ', e)
+        dcDB.conn.logout()
+    else:
+        if res[1]:
+            print(res)
+            return ({
+                'error': res[1]
+            })
+        else:
+            findquery = [
+                {"Order_No": f"=={orderno}"}
+            ]
+            sortby = [
+                {"fieldName": "Order_No", "sortOrder": "ascend"}
+            ]
+            try:
+                foundset = dcDB.conn.find(findquery, sortby, limit=1)
+            except Exception as e:
+                print('Error: ', e)
+                dcDB.conn.logout()
+                return json.dumps({"message": f"Could not fetch dp excel, error: {e}"})
+            dcDB.conn.logout()
+            link = foundset[0].to_dict()['excel'].replace("?", ".xlsx?")
+            print(link)
+            return ({
+                'excellink': link
+            })

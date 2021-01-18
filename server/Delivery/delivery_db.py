@@ -32,7 +32,8 @@ def db_getDelivery(username):
             'DT_Connection': record.to_dict()['DT_Connection'],
             'Quantity': record.to_dict()['Quantity'],
             'Ref': record.to_dict()['Ref'],
-            'Wiresling': record.to_dict()['PDF']
+            'Wiresling': record.to_dict()['PDF'],
+            'Asset': record.to_dict()['Asset']
         }
         liste.append(record_dict)
     return liste

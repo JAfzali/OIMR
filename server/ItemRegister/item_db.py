@@ -46,7 +46,8 @@ def db_getInventory(username):
             'Inspection': record.to_dict()['portal_Portal | Inventory Transactions 2'][0].to_dict()['ODP_Stock_list_List::Inspection'],
             'Norse': record.to_dict()['portal_Portal | Inventory Transactions 2'][0].to_dict()['ODP_Stock_list_List::Norse'],
             'PDF': record.to_dict()['Certificate'],
-            'Equipment': record.to_dict()['Equipment']
+            'Equipment': record.to_dict()['Equipment'],
+            'Asset' : record.to_dict()['Asset'],
         }
         itemliste.append(record_dict)
     return itemliste

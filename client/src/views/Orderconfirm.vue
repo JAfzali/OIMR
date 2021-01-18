@@ -140,18 +140,34 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["getUsername"]),
+    ...mapGetters(["getUsername", "getAsset","getFleet"]),
     filteredOrders() {
-      if (this.selected.length == 2) {
-        return this.desserts;
-      } else if (this.selected == "completed") {
-        return this.desserts.filter(order => {
-          return order.Completed === "Yes";
-        });
-      } else if (this.selected == "ongoing") {
-        return this.desserts.filter(order => {
-          return order.Completed === "No";
-        });
+      if (this.getFleet === true) {
+        if (this.selected.length == 2) {
+          return this.desserts;
+        } else if (this.selected == "completed") {
+          return this.desserts.filter(order => {
+            return order.Completed === "Yes";
+          });
+        } else if (this.selected == "ongoing") {
+          return this.desserts.filter(order => {
+            return order.Completed === "No";
+          });
+        }
+      } else {
+        if (this.selected.length == 2) {
+          return this.desserts.filter(order => {
+            return order.Asset === this.getAsset;
+          });
+        } else if (this.selected == "completed") {
+          return this.desserts.filter(order => {
+            return order.Completed === "Yes" && order.Asset === this.getAsset;
+          });
+        } else if (this.selected == "ongoing") {
+          return this.desserts.filter(order => {
+            return order.Completed === "No" && order.Asset === this.getAsset;
+          });
+        }
       }
     }
   },

@@ -18,3 +18,10 @@ def getdc():
     print(username)
     info = ddb.db_getdc(username)
     return json.dumps(info)
+
+@dc.route('/getdcExcel',methods=['GET'])
+def getdcExcel():
+    orderno = request.args.get('orderno')
+    print(orderno)
+    info = ddb.db_getdcExcel(orderno)
+    return json.dumps(info)

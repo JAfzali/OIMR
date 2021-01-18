@@ -5,50 +5,50 @@
         <b>Delivery Ticket</b>
         <v-spacer></v-spacer>
         <v-card class="text-center">
-        <v-dialog v-model="dialogg" width="300">
-          <v-card>
-            <v-list-item two-line class="light-blue lighten-4">
-              <v-list-item-content>
-                <v-list-item-title class="headline"></v-list-item-title>
-                <v-list-item-subtitle>Order Number</v-list-item-subtitle>
-                <v-list-item-title class="headline">{{
-                  DTNO
-                }}</v-list-item-title>
-              </v-list-item-content>
-            </v-list-item>
-            <v-divider></v-divider>
-            <v-row align="center" justify="space-around">
-              <v-btn
-                :loading="dtpdfload"
-                depressed
-                color="white"
-                block
-                @click="getDTPDF"
-              >
-                DT summary/Tally report(.PDF)
-              </v-btn>
-              <v-btn
-                :loading="dtpdfload"
-                depressed
-                color="white"
-                block
-                @click="getDTEXCEL"
-              >
-                Tally report(.XLSX)
-              </v-btn>
-              <v-btn
-                :loading="dtpdfload"
-                depressed
-                color="white"
-                block
-                @click="getWire"
-              >
-                Wire Sling(.PDF)
-              </v-btn>
-            </v-row>
-          </v-card>
-        </v-dialog>
-      </v-card>
+          <v-dialog v-model="dialogg" width="300">
+            <v-card>
+              <v-list-item two-line class="light-blue lighten-4">
+                <v-list-item-content>
+                  <v-list-item-title class="headline"></v-list-item-title>
+                  <v-list-item-subtitle>Order Number</v-list-item-subtitle>
+                  <v-list-item-title class="headline">{{
+                    DTNO
+                  }}</v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+              <v-divider></v-divider>
+              <v-row align="center" justify="space-around">
+                <v-btn
+                  :loading="dtpdfload"
+                  depressed
+                  color="white"
+                  block
+                  @click="getDTPDF"
+                >
+                  DT summary/Tally report(.PDF)
+                </v-btn>
+                <v-btn
+                  :loading="dtpdfload"
+                  depressed
+                  color="white"
+                  block
+                  @click="getDTEXCEL"
+                >
+                  Tally report(.XLSX)
+                </v-btn>
+                <v-btn
+                  :loading="dtpdfload"
+                  depressed
+                  color="white"
+                  block
+                  @click="getWire"
+                >
+                  Wire Sling(.PDF)
+                </v-btn>
+              </v-row>
+            </v-card>
+          </v-dialog>
+        </v-card>
         <v-text-field
           v-model="search"
           append-icon="mdi-magnify"
@@ -60,7 +60,7 @@
       <v-data-table
         :loading="test"
         :headers="headers"
-        :items="desserts"
+        :items="filteredItems"
         :search="search"
       >
         <template v-slot:item.action="{ item }">
@@ -80,9 +80,9 @@ export default {
   name: "delivery",
   data() {
     return {
-      wiresling: '',
+      wiresling: "",
       dtpdfload: false,
-      DTNO: '',
+      DTNO: "",
       test: false,
       search: "",
       dialogg: false,
@@ -102,7 +102,7 @@ export default {
         { text: "Grade", value: "Grade" },
         { text: "Connection", value: "DT_Connection" },
         { text: "Ref", value: "Ref" },
-        { text: "PDF", value: "action", sortable: false },
+        { text: "PDF", value: "action", sortable: false }
       ],
       desserts: [
         {
@@ -149,7 +149,17 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["getUsername"])
+    ...mapGetters(["getUsername", "getAsset", "getAssetlist", "getFleet"]),
+
+    filteredItems() {
+      if (this.getFleet === true) {
+        return this.desserts;
+      } else {
+        return this.desserts.filter(dt => {
+          return dt.Asset === this.getAsset;
+        });
+      }
+    }
   },
   mounted() {
     this.test = true;
@@ -187,8 +197,8 @@ export default {
         });
     },
     getDOC(item) {
-      this.DTNO = item.DT_No
-      this.wiresling = item.Wiresling
+      this.DTNO = item.DT_No;
+      this.wiresling = item.Wiresling;
       this.dialogg = true;
     },
     getWire() {
