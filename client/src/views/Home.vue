@@ -13,10 +13,11 @@
               </div>
               <div
                 v-if="isAssetList"
-                style="color: #204060; width: 30%; margin: 0 auto;"
+                style="color: #204060; width: 20%; margin: 0 auto;"
                 class="display-1"
               >
                 <v-select
+                  v-if="isAssetList"
                   :placeholder="[[currentAsset]]"
                   v-model="select"
                   :items="filteredAssets"
@@ -24,6 +25,7 @@
                   persistent-hint
                   return-object
                   single-line
+                  dense
                 ></v-select>
               </div>
             </v-col>
@@ -113,14 +115,25 @@ export default {
   },
   watch: {
     select: function() {
-      this.setasset({ asset: this.select });
+      if (this.select === "Fleet Inventory") {
+        this.setasset({ asset: this.select });
+        this.setfleet({ fleet: true });
+      } else {
+        this.setasset({ asset: this.select });
+        this.setfleet({ fleet: false });
+      }
     }
   },
   methods: {
-    ...mapActions(["setasset"])
+    ...mapActions(["setasset", "setfleet"])
   },
   mounted() {
-    this.items = this.getAssetlist;
+    if(this.isAssetList === true) {
+        this.items = this.getAssetlist.push("Fleet Inventory");
+    } else {
+      this.items = this.getAssetlist;
+    }
+    
   },
   computed: {
     ...mapGetters(["getEmail", "getUsername", "getAsset", "getAssetlist"]),
@@ -144,9 +157,7 @@ export default {
 </script>
 
 <style lang="css" scoped>
-
 input {
   float: left;
 }
-
 </style>

@@ -7,7 +7,8 @@ const state = {
   username: '',
   loadingcomplete: false,
   assetlist: [],
-  asset: null
+  asset: null,
+  fleet: false
 }
 
 const getters = {
@@ -16,7 +17,8 @@ const getters = {
   getUsername: state => state.username,
   getLoadingcomplete: state => state.loadingcomplete,
   getAssetlist: state => state.assetlist,
-  getAsset: state => state.asset
+  getAsset: state => state.asset,
+  getFleet: state => state.fleet
 }
 
 const actions = {
@@ -57,8 +59,10 @@ const actions = {
   },
   setasset ({ commit }, { asset }) {
     commit('setAsset',asset)
+  },
+  setfleet ({ commit }, { fleet }) {
+    commit('setFleet',fleet)
   } 
-
 }
 
 const mutations = {
@@ -69,7 +73,8 @@ const mutations = {
     state.email = ''
     state.username = ''
     state.asset = '',
-    state.assetlist = []
+    state.assetlist = [],
+    state.fleet = false
   },
   setUsername: (state, data) => {
     state.username = data.username
@@ -84,6 +89,9 @@ const mutations = {
   },
   setAsset: (state, asset) => {
     state.asset = asset
+  },
+  setFleet: (state, fleet) => {
+    state.fleet = fleet
   }
 }
 

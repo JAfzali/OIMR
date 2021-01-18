@@ -18,6 +18,15 @@
             </v-card-title>
           </v-card>
         </v-col>
+        <v-col :cols="12">
+          <v-card @click="setFleet" height="200" dark color="#204060">
+            <v-card-title primary-title class="justify-center">
+              <div>
+                <h1 class="headline">Fleet Inventory</h1>
+              </div>
+            </v-card-title>
+          </v-card>
+        </v-col>
       </v-row>
     </v-card>
   </v-container>
@@ -30,10 +39,16 @@ export default {
     return {};
   },
   methods: {
-    ...mapActions(['setasset']),
+    ...mapActions(['setasset','setfleet']),
     test(card)  {
       console.log(card)
       this.setasset({ asset: card })
+      this.$router.replace('home')
+    },
+    setFleet() {
+      console.log('fleet')
+      this.setasset({ asset: 'Fleet Inventory' })
+      this.setfleet({ fleet: true })
       this.$router.replace('home')
     }
   },

@@ -18,3 +18,10 @@ def gethw():
     print(username)
     info = hdb.db_gethw(username)
     return json.dumps(info)
+
+@hw.route('/gethwExcel',methods=['GET'])
+def gethwExcel():
+    orderno = request.args.get('orderno')
+    print(orderno)
+    info = hdb.db_gethwExcel(orderno)
+    return json.dumps(info)

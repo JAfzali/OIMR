@@ -36,6 +36,21 @@
             :items="numbers"
             :search="search2"
           >
+          <template v-slot:item.Serial_Number="{ item }">
+              <v-tooltip right>
+                <template v-slot:activator="{ on }">
+                  <v-btn
+                    width="90"
+                    v-on="on"
+                    small
+                    color="white"
+                    @click="showRack(item)"
+                    >{{ item.Serial_Number }}<v-spacer></v-spacer
+                  ></v-btn>
+                </template>
+                <span>Show Rack</span>
+              </v-tooltip>
+            </template>
           </v-data-table>
         </v-card>
       </v-dialog>
@@ -254,7 +269,7 @@
       <v-data-table
         :loading="test"
         :headers="headers"
-        :items="desserts"
+        :items="filterItems"
         :search="search"
       >
         <template v-slot:item.action="{ item }">
@@ -502,7 +517,7 @@ export default {
         { text: 'Limited Service', value: 'Limited_Service' },
         { text: 'On Hold', value: 'On_Hold' },
         { text: 'Other', value: 'Other' },
-        { text: 'Total Yard', value: 'Total_Yard' },
+        { text: 'Total Onshore', value: 'Total_Yard' },
         { text: 'Certificates', sortable: false, value: 'action' }
       ],
       desserts: []
@@ -603,7 +618,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['getUsername']),
+    ...mapGetters(['getUsername','getAsset','getFleet']),
     divideRows () {
       const chunkarray = []
       const fullarray = this.allpipes
@@ -617,6 +632,15 @@ export default {
         chunkarray.push(temparray)
       }
       return chunkarray.reverse()
+    },
+    filterItems() {
+      if (this.getFleet === true) {
+        return this.desserts;
+      } else {
+        return this.desserts.filter(item => {
+          return item.Asset === this.getAsset;
+        });
+      }
     }
   }
 }

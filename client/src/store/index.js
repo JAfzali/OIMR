@@ -19,7 +19,8 @@ export default new Vuex.Store({
         'auth.username',
         'auth.assetlist',
         'auth.loadingcomplete',
-        'auth.asset'
+        'auth.asset',
+        'auth.fleet'
       ]
     })
   ]

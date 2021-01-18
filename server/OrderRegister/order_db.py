@@ -41,7 +41,8 @@ def db_getOrderconfirm(username):
             'Completed': record.to_dict()['Completed'],
             'Check_Inspection': record.to_dict()['Check_Inspection'],
             'Check_Machining': record.to_dict()['Check_Machining'],
-            'Check_Hardbanding': record.to_dict()['Check_Hardbanding']
+            'Check_Hardbanding': record.to_dict()['Check_Hardbanding'],
+            'Asset': record.to_dict()['Asset']
         }
         orderliste.append(record_dict)
     return orderliste
@@ -108,9 +109,145 @@ def db_getMachExcel(orderno):
                 orderDB.conn.logout()
                 return json.dumps({"message": f"Could not fetch dp excel, error: {e}"})
             orderDB.conn.logout()
+            link = foundset[0].to_dict()['excel_machining'].replace("?", ".xlsx?")
             return ({
-                'excellink': foundset[0].to_dict()['excel_machining']
+                'excellink': link
             })
+
+def db_getHardExcel(orderno):
+    orderDB.conn.layout = 'ODP_Tubular_order_Conformation'
+    try:
+        orderDB.conn.login()
+        res = orderDB.conn.perform_script('hard1', orderno)
+    except Exception as e:
+        print('Error: ', e)
+        orderDB.conn.logout()
+    else:
+        if res[1]:
+            print(res)
+            return ({
+                'error': res[1]
+            })
+        else:
+            findquery = [
+                {"Order_No": f"=={orderno}"}
+            ]
+            sortby = [
+                {"fieldName": "Order_No", "sortOrder": "ascend"}
+            ]
+            try:
+                foundset = orderDB.conn.find(findquery, sortby, limit=1)
+            except Exception as e:
+                print('Error: ', e)
+                orderDB.conn.logout()
+                return json.dumps({"message": f"Could not fetch dp excel, error: {e}"})
+            orderDB.conn.logout()
+            link = foundset[0].to_dict()['excel_hardbanding'].replace("?", ".xlsx?")
+            return ({
+                'excellink': link
+            })
+
+def db_getHardExcelHW(orderno):
+    orderDB.conn.layout = 'ODP_Tubular_order_Conformation'
+    try:
+        orderDB.conn.login()
+        res = orderDB.conn.perform_script('hardHW1', orderno)
+    except Exception as e:
+        print('Error: ', e)
+        orderDB.conn.logout()
+    else:
+        if res[1]:
+            print(res)
+            return ({
+                'error': res[1]
+            })
+        else:
+            findquery = [
+                {"Order_No": f"=={orderno}"}
+            ]
+            sortby = [
+                {"fieldName": "Order_No", "sortOrder": "ascend"}
+            ]
+            try:
+                foundset = orderDB.conn.find(findquery, sortby, limit=1)
+            except Exception as e:
+                print('Error: ', e)
+                orderDB.conn.logout()
+                return json.dumps({"message": f"Could not fetch dp excel, error: {e}"})
+            orderDB.conn.logout()
+            link = foundset[0].to_dict()['excel_hardHW'].replace("?", ".xlsx?")
+            return ({
+                'excellink': link
+            })
+
+def db_getMachExcelHW(orderno):
+    orderDB.conn.layout = 'ODP_Tubular_order_Conformation'
+    try:
+        orderDB.conn.login()
+        res = orderDB.conn.perform_script('machHW1', orderno)
+    except Exception as e:
+        print('Error: ', e)
+        orderDB.conn.logout()
+    else:
+        if res[1]:
+            print(res)
+            return ({
+                'error': res[1]
+            })
+        else:
+            findquery = [
+                {"Order_No": f"=={orderno}"}
+            ]
+            sortby = [
+                {"fieldName": "Order_No", "sortOrder": "ascend"}
+            ]
+            try:
+                foundset = orderDB.conn.find(findquery, sortby, limit=1)
+            except Exception as e:
+                print('Error: ', e)
+                orderDB.conn.logout()
+                return json.dumps({"message": f"Could not fetch dp excel, error: {e}"})
+            orderDB.conn.logout()
+            link = foundset[0].to_dict()['excel_macHW'].replace("?", ".xlsx?")
+            return ({
+                'excellink': link
+            })
+
+def db_getMachExcelDC(orderno):
+    orderDB.conn.layout = 'ODP_Tubular_order_Conformation'
+    try:
+        orderDB.conn.login()
+        res = orderDB.conn.perform_script('machDC1', orderno)
+    except Exception as e:
+        print('Error: ', e)
+        orderDB.conn.logout()
+    else:
+        if res[1]:
+            print(res)
+            return ({
+                'error': res[1]
+            })
+        else:
+            findquery = [
+                {"Order_No": f"=={orderno}"}
+            ]
+            sortby = [
+                {"fieldName": "Order_No", "sortOrder": "ascend"}
+            ]
+            try:
+                foundset = orderDB.conn.find(findquery, sortby, limit=1)
+            except Exception as e:
+                print('Error: ', e)
+                orderDB.conn.logout()
+                return json.dumps({"message": f"Could not fetch dp excel, error: {e}"})
+            orderDB.conn.logout()
+            link = foundset[0].to_dict()['excel_macDC'].replace("?", ".xlsx?")
+            return ({
+                'excellink': link
+            })
+
+
+
 
 
 
