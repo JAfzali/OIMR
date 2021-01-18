@@ -207,6 +207,7 @@ def db_getPipes(rackname):
         return json.dumps({'message': 'Could not find rack'}),401
     serialDB.conn.logout()
     Rackdict['rackinfo'] = foundset1[0].to_dict()
+    Rackdict['rackinfo']['Rack_ID'] = Rackdict['rackinfo']['Rack_ID'].replace("_", " ")
 
 
     #INFO PIPES
