@@ -1,5 +1,6 @@
 <template>
   <v-container fluid>
+    <pdf_menu :dialog="dialog" :currentOrdernr="currentOrdernr" :currentrec="currentrec" :currentCOCHB="currentCOCHB" :currentCOCMC="currentCOCMC"></pdf_menu>
     <!-- Stack the columns on mobile by making one full-width and the other half-width -->
     <v-row class="white">
       <v-col cols="1" md="12">
@@ -35,7 +36,7 @@
             class="elevation-1"
           >
             <template v-slot:item.action="{ item }">
-              <v-btn dark x-small text color="black" @click="getOrderPDF(item)">
+              <v-btn dark x-small text color="black" @click="getPDF(item)">
                 <v-icon>description</v-icon>
               </v-btn>
             </template>
@@ -170,8 +171,10 @@
 <script>
 import { mapGetters } from "vuex";
 import axios from "axios";
+import pdf_menu from '@/components/order_pdf_menu.vue'
 export default {
   name: "completedorders",
+  components: { pdf_menu },
   props: {
     source: String
   },
@@ -253,7 +256,12 @@ export default {
         }
       ],
       mach: [],
-      hard: []
+      hard: [],
+      currentrec: "",
+      currentOrdernr: "",
+      currentCOCHB: "",
+      currentCOCMC: "",
+      dialog: false
     };
   },
   methods: {
@@ -400,6 +408,12 @@ export default {
           this.commonload = false;
           window.open(response.data.excellink, "_blank");
         });
+    getPDF(item) {
+      this.dialog = true;
+      this.currentCOCHB = item.COC_Hardbanding;
+      this.currentCOCMC = item.COC_Machining;
+      this.currentOrdernr = item.Order_No;
+      this.currentrec = item.Receive_No;
     }
   },
   mounted() {
