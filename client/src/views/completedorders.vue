@@ -1,6 +1,6 @@
 <template>
   <v-container fluid>
-    <pdf_menu :dialog="dialog" :currentOrdernr="currentOrdernr" :currentrec="currentrec" :currentCOCHB="currentCOCHB" :currentCOCMC="currentCOCMC"></pdf_menu>
+    <pdf_menu :dialog="dialog" :eq="eq" :currentOrdernr="currentOrdernr" :currentrec="currentrec" :currentCOCHB="currentCOCHB" :currentCOCMC="currentCOCMC"></pdf_menu>
     <!-- Stack the columns on mobile by making one full-width and the other half-width -->
     <v-row class="white">
       <v-col cols="1" md="12">
@@ -261,46 +261,11 @@ export default {
       currentOrdernr: "",
       currentCOCHB: "",
       currentCOCMC: "",
+      eq: "",
       dialog: false
     };
   },
   methods: {
-    getdpPDF(item) {
-      console.log(item.Order_No);
-      this.commonload = true;
-      axios
-        .get("/getdpPDF", {
-          params: { orderno: item.Order_No }
-        })
-        .then(response => {
-          this.commonload = false;
-          window.open(response.data.pdflink, "_blank");
-        });
-    },
-    gethwPDF(item) {
-      console.log(item.Order_No);
-      this.commonload = true;
-      axios
-        .get("/gethwPDF", {
-          params: { orderno: item.Order_No }
-        })
-        .then(response => {
-          this.commonload = false;
-          window.open(response.data.pdflink, "_blank");
-        });
-    },
-    getdcPDF(item) {
-      console.log(item.Order_No);
-      this.commonload = true;
-      axios
-        .get("/getdcPDF", {
-          params: { orderno: item.Order_No }
-        })
-        .then(response => {
-          this.commonload = false;
-          window.open(response.data.pdflink, "_blank");
-        });
-    },
     getExcel(item) {
       console.log(item.Order_No);
       this.commonload = true;
@@ -357,6 +322,7 @@ export default {
           params: { orderno: item.Order_No }
         })
         .then(response => {
+          console.log(response.data.excellink)
           this.commonload = false;
           window.open(response.data.excellink, "_blank");
         });
@@ -407,13 +373,15 @@ export default {
         .then(response => {
           this.commonload = false;
           window.open(response.data.excellink, "_blank");
-        });
+        })
+    },
     getPDF(item) {
       this.dialog = true;
       this.currentCOCHB = item.COC_Hardbanding;
       this.currentCOCMC = item.COC_Machining;
       this.currentOrdernr = item.Order_No;
       this.currentrec = item.Receive_No;
+      this.eq = item.Equipment
     }
   },
   mounted() {

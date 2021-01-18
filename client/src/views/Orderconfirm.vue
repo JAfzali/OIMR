@@ -3,7 +3,7 @@
     <v-card-title>
       Orders
       <v-spacer></v-spacer>
-            <pdf_menu :dialog="dialog" :currentOrdernr="currentOrdernr" :currentrec="currentrec" :currentCOCHB="currentCOCHB" :currentCOCMC="currentCOCMC"></pdf_menu>
+      <pdf_menu :dialog="dialog" :eq="eq" :currentOrdernr="currentOrdernr" :currentrec="currentrec" :currentCOCHB="currentCOCHB" :currentCOCMC="currentCOCMC"></pdf_menu>
       <v-text-field
         v-model="search"
         append-icon="mdi-magnify"
@@ -56,6 +56,7 @@ export default {
       currentCOCHB: "",
       currentCOCMC: "",
       dialog: false,
+      eq: "",
       loading: false,
       orderpdfload: false,
       search: "",
@@ -133,6 +134,7 @@ export default {
       this.currentCOCMC = item.COC_Machining;
       this.currentOrdernr = item.Order_No;
       this.currentrec = item.Receive_No;
+      this.eq = item.Equipment
     },
     getReceivedPDF() {
       console.log(this.currentrec);
@@ -176,16 +178,40 @@ export default {
           window.open(response.data.pdflink, "_blank");
         });
     },
-    getInspRepPDF() {
-      console.log(this.currentOrdernr);
-      this.insprepload = true;
+    getExcel(item) {
+      console.log(item.Order_No);
+      this.commonload = true;
       axios
-        .get("/getdpPDF", {
-          params: { orderno: this.currentOrdernr }
+        .get("/getdpExcel", {
+          params: { orderno: item.Order_No }
         })
         .then(response => {
-          this.insprepload = false;
-          window.open(response.data.pdflink, "_blank");
+          this.commonload = false;
+          window.open(response.data.excellink, "_blank");
+        });
+    },
+    getExcelhw(item) {
+      console.log(item.Order_No);
+      this.commonload = true;
+      axios
+        .get("/gethwExcel", {
+          params: { orderno: item.Order_No }
+        })
+        .then(response => {
+          this.commonload = false;
+          window.open(response.data.excellink, "_blank");
+        });
+    },
+    getExceldc(item) {
+      console.log(item.Order_No);
+      this.commonload = true;
+      axios
+        .get("/getdcExcel", {
+          params: { orderno: item.Order_No }
+        })
+        .then(response => {
+          this.commonload = false;
+          window.open(response.data.excellink, "_blank");
         });
     }
   }

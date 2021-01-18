@@ -51,13 +51,23 @@
             <v-spacer/>
           </v-btn>
           <v-btn
-            :loading="insprepload"
+            :loading="inspreploadPDF"
             depressed
             color="white"
             block
-            @click="getInspRepPDF"
+            @click="getInspectionTypePDF"
           >
-            Inspection Report
+            Inspection Report PDF
+            <v-spacer/>
+          </v-btn>
+          <v-btn
+            :loading="inspreploadEXCEL"
+            depressed
+            color="white"
+            block
+            @click="getInspectionTypeEXCEL"
+          >
+            Inspection Report EXCEL
             <v-spacer/>
           </v-btn>
         </div>
@@ -70,13 +80,14 @@ import axios from 'axios'
 
 export default {
   name: 'pdf_menu',
-  props: ['currentOrdernr', 'currentrec', 'currentCOCHB', 'currentCOCMC', 'dialog'],
+  props: ['currentOrdernr', 'currentrec', 'currentCOCHB', 'currentCOCMC', 'eq', 'dialog'],
   data() {
     return {
       preinvpdfload: false,
       recpdfload: false,
       orderpdfload: false,
-      insprepload: false,
+      inspreploadPDF: false,
+      inspreploadEXCEL: false,
       padding_class: 'pl-2'
     }
   },
@@ -86,6 +97,26 @@ export default {
     }
   },
   methods: {
+    getInspectionTypePDF() {
+      this.inspreploadPDF = true
+      if (this.eq === "Drill Pipe") {
+        this.getdpPDF()
+      } else if (this.eq === "Heavy Weight") {
+        this.gethwPDF()
+      } else if (this.eq === "Drill Collar") {
+        this.getdcPDF()
+      }
+    },
+    getInspectionTypeEXCEL() {
+      this.inspreploadEXCEL = true
+      if (this.eq === "Drill Pipe") {
+        this.getExceldp()
+      } else if (this.eq === "Heavy Weight") {
+        this.getExcelhw()
+      } else if (this.eq === "Drill Collar") {
+        this.getExceldc()
+      }
+    },
     getReceivedPDF() {
       this.recpdfload = true;
       axios
@@ -125,17 +156,67 @@ export default {
           window.open(response.data.pdflink, "_blank");
         });
     },
-    getInspRepPDF() {
-      this.insprepload = true;
+    getdpPDF() {
+      console.log(this.currentOrdernr);
       axios
         .get("/getdpPDF", {
           params: { orderno: this.currentOrdernr }
         })
         .then(response => {
-          this.insprepload = false;
+          this.inspreploadPDF = false
           window.open(response.data.pdflink, "_blank");
         });
-    }
+    },
+    gethwPDF() {
+      axios
+        .get("/gethwPDF", {
+          params: { orderno: this.currentOrdernr }
+        })
+        .then(response => {
+          this.inspreploadPDF = false
+          window.open(response.data.pdflink, "_blank");
+        });
+    },
+    getdcPDF() {
+      axios
+        .get("/getdcPDF", {
+          params: { orderno: this.currentOrdernr }
+        })
+        .then(response => {
+          this.inspreploadPDF = false
+          window.open(response.data.pdflink, "_blank");
+        });
+    },
+    getExceldp() {
+      axios
+        .get("/getdpExcel", {
+          params: { orderno: this.currentOrdernr }
+        })
+        .then(response => {
+          this.inspreploadEXCEL = false
+          window.open(response.data.excellink, "_blank");
+        });
+    },
+    getExcelhw() {
+      axios
+        .get("/gethwExcel", {
+          params: { orderno: this.currentOrdernr }
+        })
+        .then(response => {
+          this.inspreploadEXCEL = false
+          window.open(response.data.excellink, "_blank");
+        });
+    },
+    getExceldc() {
+      axios
+        .get("/getdcExcel", {
+          params: { orderno: this.currentOrdernr }
+        })
+        .then(response => {
+          this.inspreploadEXCEL = false
+          window.open(response.data.excellink, "_blank");
+        });
+    },
   }
 }
 </script>
