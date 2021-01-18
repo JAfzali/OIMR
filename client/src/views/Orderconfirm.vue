@@ -3,66 +3,7 @@
     <v-card-title>
       Orders
       <v-spacer></v-spacer>
-      <v-card class="text-center">
-        <v-dialog v-model="dialog" width="300">
-          <v-card>
-            <v-list-item two-line class="light-blue lighten-4">
-              <v-list-item-content>
-                <v-list-item-title class="headline"></v-list-item-title>
-                <v-list-item-subtitle>Order Number</v-list-item-subtitle>
-                <v-list-item-title class="headline">{{
-                  currentOrdernr
-                }}</v-list-item-title>
-              </v-list-item-content>
-            </v-list-item>
-            <v-divider></v-divider>
-            <v-row align="center" justify="space-around">
-              <v-btn
-                :loading="recpdfload"
-                depressed
-                color="white"
-                block
-                @click="getReceivedPDF"
-              >
-                Receive
-              </v-btn>
-              <v-btn
-                :loading="orderpdfload"
-                depressed
-                color="white"
-                block
-                @click="getOrderPDF"
-              >
-                Order Confirmation
-              </v-btn>
-              <v-btn depressed color="white" block @click="getCOC_MC">
-                COC Machining
-              </v-btn>
-              <v-btn depressed color="white" block @click="getCOC_HB">
-                COC Hardbanding
-              </v-btn>
-              <v-btn
-                :loading="preinvpdfload"
-                depressed
-                color="white"
-                block
-                @click="getPreinvPDF"
-              >
-                Pre Invoice
-              </v-btn>
-              <v-btn
-                :loading="insprepload"
-                depressed
-                color="white"
-                block
-                @click="getInspRepPDF"
-              >
-                Inspection Report
-              </v-btn>
-            </v-row>
-          </v-card>
-        </v-dialog>
-      </v-card>
+            <pdf_menu :dialog="dialog" :currentOrdernr="currentOrdernr" :currentrec="currentrec" :currentCOCHB="currentCOCHB" :currentCOCMC="currentCOCMC"></pdf_menu>
       <v-text-field
         v-model="search"
         append-icon="mdi-magnify"
@@ -100,8 +41,10 @@
 <script>
 import { mapGetters } from "vuex";
 import axios from "axios";
+import pdf_menu from '@/components/order_pdf_menu.vue'
 export default {
   name: "orderconfirm",
+  components: { pdf_menu },
   data() {
     return {
       selected: ["completed", "ongoing"],
@@ -111,7 +54,7 @@ export default {
       currentrec: "",
       currentOrdernr: "",
       currentCOCHB: "",
-      currentCOMC: "",
+      currentCOCMC: "",
       dialog: false,
       loading: false,
       orderpdfload: false,
