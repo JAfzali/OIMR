@@ -1,5 +1,5 @@
 <template>
-    <v-dialog v-model="propModel" width="350">
+    <v-dialog v-model="dialog" width="350">
       <v-card>
         <v-list-item two-line class="light-blue lighten-4">
           <v-list-item-content>
@@ -71,10 +71,6 @@
             <v-spacer/>
           </v-btn>
         </div>
-        <v-card-actions>
-          <v-spacer/>
-          <v-btn text @click="dialog=false">Close</v-btn>
-        </v-card-actions>
       </v-card>
     </v-dialog>
 </template>
@@ -95,10 +91,9 @@ export default {
       padding_class: 'pl-2'
     }
   },
-  computed: {
-    propModel: {
-      get () { return this.value },
-      set (value) { this.$emit('input', value) },
+  watch: {
+    dialog(value) {
+      console.log(value)
     }
   },
   methods: {
