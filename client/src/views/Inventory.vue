@@ -121,7 +121,7 @@
             <v-container fluid>
               <v-row>
                 <v-col
-                  ><v-card :min-height="header_min_height" dark color="#748cab">
+                  ><v-card :min-height="header_min_height" dark color="#83D9DD">
                     <v-card-subtitle class="text-left text-subtitle-1"
                       >Site</v-card-subtitle
                     >
@@ -131,7 +131,7 @@
                   </v-card>
                 </v-col>
                 <v-col
-                  ><v-card :min-height="header_min_height" dark color="#3e5c76" >
+                  ><v-card :min-height="header_min_height" dark color="#1B345E" >
                     <v-card-subtitle class="text-left text-subtitle-1"
                       >Rack</v-card-subtitle
                     >
@@ -141,7 +141,7 @@
                   </v-card>
                 </v-col>
                 <v-col>
-                  <v-card :min-height="header_min_height" dark color="#1d2d44">
+                  <v-card :min-height="header_min_height" dark color="#3C7BC8">
                     <v-row dense style="padding-top: 0; padding-bottom: 0;">
                       <v-col style="padding-top: 0; padding-bottom: 0;">
                         <v-card-subtitle class="text-left text-subtitle-1">
@@ -149,7 +149,7 @@
                         </v-card-subtitle>
                       </v-col>
                       <v-col style="padding-top: 0; padding-bottom: 0;">
-                        <v-card-subtitle
+                        <v-card-title
                           v-for="(key, value) in colormap"
                           :key="value"
                           class="text-left"
@@ -169,7 +169,7 @@
                           <v-icon small :style="{ color: computeColor(value) }">
                             brightness_1
                           </v-icon>
-                        </v-card-subtitle>
+                        </v-card-title>
                       </v-col>
                     </v-row>
                   </v-card>
@@ -580,6 +580,7 @@ export default {
     showPipes (item) {
       if (item.Rig_Ready > 0) {
         this.test = true
+        console.log(this.colormap)
         axios
           .get('showPipelist', {
             params: { itemnr: item.Item_No }
