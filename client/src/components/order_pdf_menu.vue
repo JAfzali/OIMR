@@ -1,5 +1,5 @@
 <template>
-    <v-dialog v-model="dialog" width="350">
+    <v-dialog :value="value" width="350" @input="$emit('input')">
       <v-card>
         <v-list-item two-line class="light-blue lighten-4">
           <v-list-item-content>
@@ -80,7 +80,7 @@ import axios from 'axios'
 
 export default {
   name: 'pdf_menu',
-  props: ['currentOrdernr', 'currentrec', 'currentCOCHB', 'currentCOCMC', 'eq', 'dialog'],
+  props: ['currentOrdernr', 'currentrec', 'currentCOCHB', 'currentCOCMC', 'eq', 'value'],
   data() {
     return {
       preinvpdfload: false,
@@ -91,12 +91,11 @@ export default {
       padding_class: 'pl-2'
     }
   },
-  watch: {
-    dialog(value) {
-      console.log(value)
-    }
-  },
   methods: {
+    closeDialog() {
+      console.log("hei")
+      this.$emit('input', false)
+    },
     getInspectionTypePDF() {
       this.inspreploadPDF = true
       if (this.eq === "Drill Pipe") {

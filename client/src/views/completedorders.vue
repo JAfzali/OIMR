@@ -1,6 +1,6 @@
 <template>
   <v-container fluid>
-    <pdf_menu :dialog="dialog" :eq="eq" :currentOrdernr="currentOrdernr" :currentrec="currentrec" :currentCOCHB="currentCOCHB" :currentCOCMC="currentCOCMC"></pdf_menu>
+    <pdf_menu v-model="dialog" :eq="eq" :currentOrdernr="currentOrdernr" :currentrec="currentrec" :currentCOCHB="currentCOCHB" :currentCOCMC="currentCOCMC"></pdf_menu>
     <!-- Stack the columns on mobile by making one full-width and the other half-width -->
     <v-row class="white">
       <v-col cols="1" md="12">
