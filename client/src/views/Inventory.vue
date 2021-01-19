@@ -142,10 +142,16 @@
                 </v-col>
                 <v-col>
                   <v-card :min-height="header_min_height" dark color="#3C7BC8">
-                        <v-card-subtitle class="text-left text-subtitle-1">
-                          Item Number
-                        </v-card-subtitle>
-                    <v-menu open-on-hover offset-y left :close-on-content-click="false" v-if="multiple_itemno.istrue">
+                    <v-card-subtitle class="text-left text-subtitle-1">
+                      Item Number
+                    </v-card-subtitle>
+                    <v-menu
+                      open-on-hover
+                      offset-y
+                      left
+                      :close-on-content-click="false"
+                      v-if="multiple_itemno.istrue"
+                    >
                       <template v-slot:activator="{ on, attrs }">
                         <v-card-title
                           dark
@@ -153,7 +159,10 @@
                           v-on="on"
                           class="text-left text-h4"
                         >
-                          <v-icon style="padding-right: 10px">mdi-chevron-down</v-icon> Total Items: {{ multiple_itemno.number }}
+                          <v-icon style="padding-right: 10px"
+                            >mdi-chevron-down</v-icon
+                          >
+                          Total Items: {{ multiple_itemno.number }}
                         </v-card-title>
                       </template>
                       <v-card color="#3C7BC8" dark flat>
@@ -178,27 +187,43 @@
                             </div>
                           </v-tooltip>
                           {{ value }}
-                          <v-icon :style="{ color: computeColor(value)}" style="padding-left: 5px" @mouseover="addBorder(value)" @mouseleave="removeBorder">
+                          <v-icon
+                            :style="{ color: computeColor(value) }"
+                            style="padding-left: 5px"
+                            @mouseover="addBorder(value)"
+                            @mouseleave="removeBorder"
+                          >
                             brightness_1
                           </v-icon>
                         </v-card-title>
                       </v-card>
-
                     </v-menu>
-                    <v-card-title v-else v-for="(key, value) in colormap" :key="value" class="text-left text-h4">
-                      <v-tooltip bottom >
+                    <v-card-title
+                      v-else
+                      v-for="(key, value) in colormap"
+                      :key="value"
+                      class="text-left text-h4"
+                    >
+                      <v-tooltip bottom>
                         <template v-slot:activator="{ on }">
                           <v-icon dark v-on="on" medium left>
                             info
                           </v-icon>
                         </template>
-                        <br/>
-                        <div class="tooltippen" v-for="(key1,value1) in key.iteminfo" :key="key1" >
-                          <b>{{value1}}:</b> {{key1}}
+                        <br />
+                        <div
+                          class="tooltippen"
+                          v-for="(key1, value1) in key.iteminfo"
+                          :key="key1"
+                        >
+                          <b>{{ value1 }}:</b> {{ key1 }}
                         </div>
                       </v-tooltip>
                       {{ value }}
-                      <v-icon :style="{ color: computeColor(value)}" style="padding-left: 5px">
+                      <v-icon
+                        :style="{ color: computeColor(value) }"
+                        style="padding-left: 5px"
+                      >
                         brightness_1
                       </v-icon>
                     </v-card-title>
@@ -304,11 +329,101 @@
         :search="search"
       >
         <template v-slot:header.Rig_Ready="{ header }">
-          <v-tooltip top >
+          <v-tooltip top>
             <template v-slot:activator="{ on }">
-              <span v-on="on" >{{ header.text }}</span>
+              <span v-on="on">{{ header.text }}</span>
             </template>
-            <span >Inspection completed</span>
+            <span
+              >Number of joints that are ready for operation (Check for valid
+              inspection date prior to shipping)</span
+            >
+          </v-tooltip>
+        </template>
+        <template v-slot:header.Inspection="{ header }">
+          <v-tooltip top>
+            <template v-slot:activator="{ on }">
+              <span v-on="on">{{ header.text }}</span>
+            </template>
+            <span>Number of joints currently in the inspection process.</span>
+          </v-tooltip>
+        </template>
+        <template v-slot:header.Booked="{ header }">
+          <v-tooltip top>
+            <template v-slot:activator="{ on }">
+              <span v-on="on">{{ header.text }}</span>
+            </template>
+            <span>Number of joints that are booked for shipping</span>
+          </v-tooltip>
+        </template>
+        <template v-slot:header.Backlog="{ header }">
+          <v-tooltip top>
+            <template v-slot:activator="{ on }">
+              <span v-on="on">{{ header.text }}</span>
+            </template>
+            <span
+              >Number of joints that are returned from offshore, and are
+              awaiting inspection.</span
+            >
+          </v-tooltip>
+        </template>
+        <template v-slot:header.Wepco="{ header }">
+          <v-tooltip top>
+            <template v-slot:activator="{ on }">
+              <span v-on="on">{{ header.text }}</span>
+            </template>
+            <span>Number of joints shipped for machining</span>
+          </v-tooltip>
+        </template>
+        <template v-slot:header.Hardbanding="{ header }">
+          <v-tooltip top>
+            <template v-slot:activator="{ on }">
+              <span v-on="on">{{ header.text }}</span>
+            </template>
+            <span>Number of joints shipped for hardbanding repairs.</span>
+          </v-tooltip>
+        </template>
+        <template v-slot:header.Scrap="{ header }">
+          <v-tooltip top>
+            <template v-slot:activator="{ on }">
+              <span v-on="on">{{ header.text }}</span>
+            </template>
+            <span>Number of joins that are scrapped.</span>
+          </v-tooltip>
+        </template>
+        <template v-slot:header.Limited_Service="{ header }">
+          <v-tooltip top>
+            <template v-slot:activator="{ on }">
+              <span v-on="on">{{ header.text }}</span>
+            </template>
+            <span
+              >Number of joints classified as limited service. This means that
+              the condition of the joints do not meet either the requirements in
+              an inspection specification or the requirements of the
+              operator.</span
+            >
+          </v-tooltip>
+        </template>
+        <template v-slot:header.Shipped="{ header }">
+          <v-tooltip top>
+            <template v-slot:activator="{ on }">
+              <span v-on="on">{{ header.text }}</span>
+            </template>
+            <span
+              >Number of joints that are shipped from Ocean IMR facilities, and
+              not returned. This gives an estimate of the number of joints that
+              are currently in rotation that was originally shipped from Ocean
+              IMR.</span
+            >
+          </v-tooltip>
+        </template>
+        <template v-slot:header.Total_Yard="{ header }">
+          <v-tooltip top>
+            <template v-slot:activator="{ on }">
+              <span v-on="on">{{ header.text }}</span>
+            </template>
+            <span
+              >Number of joints at Ocean IMR’s facilities, regardless of classification.</span
+            >
           </v-tooltip>
         </template>
         <template v-slot:item.action="{ item }">
@@ -487,8 +602,8 @@ export default {
         backgroundColor: "pink"
       },
       header_min_height: 135,
-      colormap: '',
-      rackinfo: '',
+      colormap: "",
+      rackinfo: "",
       pipeload: false,
       image: image,
       allpipes: [],
@@ -501,8 +616,8 @@ export default {
       dialog3: false,
       test: false,
       multiple_itemno: {},
-      search: '',
-      search2: '',
+      search: "",
+      search2: "",
       headers2: [
         {
           text: "Serial Number",
@@ -545,7 +660,7 @@ export default {
         { text: "Limited Service", value: "Limited_Service" },
         { text: "Shipped", value: "Shipped" },
         { text: "Total Onshore", value: "Total_Yard" },
-        { text: "Certificates", sortable: false, value: "action"}
+        { text: "Certificates", sortable: false, value: "action" }
       ],
       desserts: []
     };
@@ -564,27 +679,27 @@ export default {
   },
   methods: {
     addBorder(value) {
-      let color = this.computeColor(value)
-      let elements = this.$refs.box
+      let color = this.computeColor(value);
+      let elements = this.$refs.box;
 
       for (var i = 0; i < elements.length; i++) {
         if (color === elements[i].bgColor) {
-          elements[i].style.border = "5px solid black"
+          elements[i].style.border = "5px solid black";
         } else {
-          elements[i].style.border = ""
-          elements[i].classList.add("tdclass")
+          elements[i].style.border = "";
+          elements[i].classList.add("tdclass");
         }
       }
 
-      console.log(color)
-      console.log(elements.bgColor)
+      console.log(color);
+      console.log(elements.bgColor);
     },
     removeBorder() {
-      let elements = this.$refs.box
+      let elements = this.$refs.box;
 
       for (var i = 0; i < elements.length; i++) {
-        elements[i].style.border = ""
-        elements[i].classList.add("tdclass")
+        elements[i].style.border = "";
+        elements[i].classList.add("tdclass");
       }
     },
     computeColor(pipe) {
@@ -607,16 +722,16 @@ export default {
           params: { rackname: pipedata.Rack_Position }
         })
         .then(response => {
-          this.pipeload = false
-          console.log(response.data.rackinfo)
-          this.n = response.data.rackinfo.Maxrowcount
-          this.allpipes = response.data.pipes
-          this.rackinfo = response.data.rackinfo
-          this.colormap = response.data.colormap
-          this.multiple_itemno.number = response.data.number_of_items
-          this.multiple_itemno.istrue = response.data.number_of_items > 1
-          this.dialog2 = true
-        })
+          this.pipeload = false;
+          console.log(response.data.rackinfo);
+          this.n = response.data.rackinfo.Maxrowcount;
+          this.allpipes = response.data.pipes;
+          this.rackinfo = response.data.rackinfo;
+          this.colormap = response.data.colormap;
+          this.multiple_itemno.number = response.data.number_of_items;
+          this.multiple_itemno.istrue = response.data.number_of_items > 1;
+          this.dialog2 = true;
+        });
     },
     clearList() {
       this.numbers = [];
@@ -632,7 +747,7 @@ export default {
     },
     showPipes(item) {
       if (item.Rig_Ready > 0) {
-        this.test = true
+        this.test = true;
         axios
           .get("showPipelist", {
             params: { itemnr: item.Item_No }
@@ -696,7 +811,7 @@ export default {
       }
     },
     check_itemnr() {
-      return this.colormap.length > 1
+      return this.colormap.length > 1;
     }
   }
 };

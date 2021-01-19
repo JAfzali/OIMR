@@ -42,7 +42,9 @@ def db_getOrderconfirm(username):
             'Check_Inspection': record.to_dict()['Check_Inspection'],
             'Check_Machining': record.to_dict()['Check_Machining'],
             'Check_Hardbanding': record.to_dict()['Check_Hardbanding'],
-            'Asset': record.to_dict()['Asset']
+            'Asset': record.to_dict()['Asset'],
+            'sent_hb': record.to_dict()['sent_hb'],
+            'sent_mach': record.to_dict()['sent_mach']
         }
         orderliste.append(record_dict)
     return orderliste

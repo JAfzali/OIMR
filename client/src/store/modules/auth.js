@@ -47,6 +47,7 @@ const actions = {
         router.replace('asset')
       } else {
         router.replace('home')
+        commit('setFleet',true)
       }
       commit('setLoadingcomplete',true)
     })
