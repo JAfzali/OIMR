@@ -3,7 +3,7 @@
     <v-card-title>
       Orders
       <v-spacer></v-spacer>
-      <pdf_menu :dialog="dialog" :eq="eq" :currentOrdernr="currentOrdernr" :currentrec="currentrec" :currentCOCHB="currentCOCHB" :currentCOCMC="currentCOCMC"></pdf_menu>
+      <pdf_menu v-model="dialog" :eq="eq" :currentOrdernr="currentOrdernr" :currentrec="currentrec" :currentCOCHB="currentCOCHB" :currentCOCMC="currentCOCMC"></pdf_menu>
       <v-text-field
         v-model="search"
         append-icon="mdi-magnify"

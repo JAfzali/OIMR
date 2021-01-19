@@ -4,7 +4,7 @@
       <v-card-title>
         <b>Delivery Ticket</b>
         <v-spacer></v-spacer>
-        <v-card class="text-center">
+        <v-card>
           <v-dialog v-model="dialogg" width="300">
             <v-card>
               <v-list-item two-line class="light-blue lighten-4">
@@ -17,7 +17,7 @@
                 </v-list-item-content>
               </v-list-item>
               <v-divider></v-divider>
-              <v-row align="center" justify="space-around">
+              <div>
                 <v-btn
                   :loading="dtpdfload"
                   depressed
@@ -25,7 +25,8 @@
                   block
                   @click="getDTPDF"
                 >
-                  DT summary/Tally report(.PDF)
+                  DT summary/Tally report PDF
+                  <v-spacer/>
                 </v-btn>
                 <v-btn
                   :loading="dtpdfload"
@@ -34,7 +35,8 @@
                   block
                   @click="getDTEXCEL"
                 >
-                  Tally report(.XLSX)
+                  Tally report EXCEL
+                  <v-spacer/>
                 </v-btn>
                 <v-btn
                   :loading="dtpdfload"
@@ -43,9 +45,10 @@
                   block
                   @click="getWire"
                 >
-                  Wire Sling(.PDF)
+                  Wire Sling PDF
+                  <v-spacer/>
                 </v-btn>
-              </v-row>
+              </div>
             </v-card>
           </v-dialog>
         </v-card>
