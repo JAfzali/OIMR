@@ -36,7 +36,7 @@
             :items="numbers"
             :search="search2"
           >
-          <template v-slot:item.Serial_Number="{ item }">
+            <template v-slot:item.Serial_Number="{ item }">
               <v-tooltip right>
                 <template v-slot:activator="{ on }">
                   <v-btn
@@ -131,7 +131,7 @@
                   </v-card>
                 </v-col>
                 <v-col
-                  ><v-card :min-height="header_min_height" dark color="#1B345E" >
+                  ><v-card :min-height="header_min_height" dark color="#1B345E">
                     <v-card-subtitle class="text-left text-subtitle-1"
                       >Rack</v-card-subtitle
                     >
@@ -160,9 +160,13 @@
                                 info
                               </v-icon>
                             </template>
-                            <br/>
-                            <div class="tooltippen" v-for="(key1,value1) in key.iteminfo" :key="key1" >
-                              <b>{{value1}}:</b> {{key1}}
+                            <br />
+                            <div
+                              class="tooltippen"
+                              v-for="(key1, value1) in key.iteminfo"
+                              :key="key1"
+                            >
+                              <b>{{ value1 }}:</b> {{ key1 }}
                             </div>
                           </v-tooltip>
                           <span>{{ value }}</span>
@@ -272,21 +276,31 @@
         :items="filterItems"
         :search="search"
       >
+        <template v-slot:header.Rig_Ready="{ header }">
+          <v-tooltip top >
+            <template v-slot:activator="{ on }">
+              <span v-on="on" >{{ header.text }}</span>
+            </template>
+            <span >Inspection completed</span>
+          </v-tooltip>
+        </template>
         <template v-slot:item.action="{ item }">
           <v-btn dark small color="black" @click="getPDF(item)">
             PDF
           </v-btn>
         </template>
-
         <template v-slot:item.Rig_Ready="{ item }">
           <v-tooltip left :disabled="item.Rig_Ready == 0">
             <template v-slot:activator="{ on }">
-              <v-btn  v-if="item.Rig_Ready != 0" v-on="on" small text @click="showPipes(item)">{{
-                item.Rig_Ready
-              }}</v-btn>
-              <v-btn v-else v-on="on" small text>{{
-                  0
-                }}</v-btn>
+              <v-btn
+                v-if="item.Rig_Ready != 0"
+                v-on="on"
+                small
+                text
+                @click="showPipes(item)"
+                >{{ item.Rig_Ready }}</v-btn
+              >
+              <v-btn v-else v-on="on" small text>{{ 0 }}</v-btn>
             </template>
             <span v-if="item.Rig_Ready != 0">Show Pipes</span>
           </v-tooltip>
@@ -303,9 +317,7 @@
                 @click="showOtherPipes(item, 'Scrap')"
                 >{{ item.Scrap }}</v-btn
               >
-              <v-btn v-else v-on="on" small text>{{
-                0
-              }}</v-btn>
+              <v-btn v-else v-on="on" small text>{{ 0 }}</v-btn>
             </template>
             <span v-if="item.Scrap != 0">Show Pipes</span>
           </v-tooltip>
@@ -322,9 +334,7 @@
                 @click="showOtherPipes(item, 'Limited Service')"
                 >{{ item.Limited_Service }}</v-btn
               >
-              <v-btn v-else v-on="on" small text>{{
-                0
-              }}</v-btn>
+              <v-btn v-else v-on="on" small text>{{ 0 }}</v-btn>
             </template>
             <span v-if="item.Limited_Service != 0">Show Pipes</span>
           </v-tooltip>
@@ -341,9 +351,7 @@
                 @click="showOtherPipes(item, 'Inspection')"
                 >{{ item.Inspection }}</v-btn
               >
-              <v-btn v-else v-on="on" small text>{{
-                0
-              }}</v-btn>
+              <v-btn v-else v-on="on" small text>{{ 0 }}</v-btn>
             </template>
             <span v-if="item.Inspection != 0">Show Pipes</span>
           </v-tooltip>
@@ -360,9 +368,7 @@
                 @click="showOtherPipes(item, 'Hardbanding')"
                 >{{ item.Hardbanding }}</v-btn
               >
-              <v-btn v-else v-on="on" small text>{{
-                0
-              }}</v-btn>
+              <v-btn v-else v-on="on" small text>{{ 0 }}</v-btn>
             </template>
             <span>Show Pipes</span>
           </v-tooltip>
@@ -379,9 +385,7 @@
                 @click="showOtherPipes(item, 'Booked')"
                 >{{ item.Booked }}</v-btn
               >
-              <v-btn v-else v-on="on" small text>{{
-                0
-              }}</v-btn>
+              <v-btn v-else v-on="on" small text>{{ 0 }}</v-btn>
             </template>
             <span v-if="item.Booked != 0">Show Pipes</span>
           </v-tooltip>
@@ -398,9 +402,7 @@
                 @click="showOtherPipes(item, 'On_Hold')"
                 >{{ item.On_Hold }}</v-btn
               >
-              <v-btn v-else v-on="on" small text>{{
-                0
-              }}</v-btn>
+              <v-btn v-else v-on="on" small text>{{ 0 }}</v-btn>
             </template>
             <span v-if="item.On_Hold != 0">Show Pipes</span>
           </v-tooltip>
@@ -417,9 +419,7 @@
                 @click="showOtherPipes(item, 'Wepco')"
                 >{{ item.Wepco }}</v-btn
               >
-              <v-btn v-else v-on="on" small text>{{
-                0
-              }}</v-btn>
+              <v-btn v-else v-on="on" small text>{{ 0 }}</v-btn>
             </template>
             <span v-if="item.Wepco != 0">Show Pipes</span>
           </v-tooltip>
@@ -436,9 +436,7 @@
                 @click="showOtherPipes(item, 'Stamas')"
                 >{{ item.Stamas }}</v-btn
               >
-              <v-btn v-else v-on="on" small text>{{
-                0
-              }}</v-btn>
+              <v-btn v-else v-on="on" small text>{{ 0 }}</v-btn>
             </template>
             <span v-if="item.Stamas != 0">Show Pipes</span>
           </v-tooltip>
@@ -449,21 +447,21 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-import axios from 'axios'
-import image from '../assets/picture.png'
-import moment from 'moment'
+import { mapGetters } from "vuex";
+import axios from "axios";
+import image from "../assets/picture.png";
+import moment from "moment";
 export default {
-  name: 'inventory',
-  data () {
+  name: "inventory",
+  data() {
     return {
-      location: '',
+      location: "",
       pipe: {
-        backgroundColor: 'pink'
+        backgroundColor: "pink"
       },
       header_min_height: 130,
-      colormap: '',
-      rackinfo: '',
+      colormap: "",
+      rackinfo: "",
       pipeload: false,
       image: image,
       allpipes: [],
@@ -475,164 +473,165 @@ export default {
       dialog2: false,
       dialog3: false,
       test: false,
-      search: '',
-      search2: '',
+      search: "",
+      search2: "",
       headers2: [
         {
-          text: 'Serial Number',
-          align: 'start',
+          text: "Serial Number",
+          align: "start",
           sortable: true,
-          value: 'Serial_Number'
+          value: "Serial_Number"
         },
-        { text: 'Rack Position', value: 'Rack_Position' },
-        { text: 'Position', value: 'Position' },
-        { text: 'Current Location', value: 'Current_Location' }
+        { text: "Rack Position", value: "Rack_Position" },
+        { text: "Position", value: "Position" },
+        { text: "Current Location", value: "Current_Location" }
       ],
       headers3: [
         {
-          text: 'Serial Number',
-          align: 'start',
+          text: "Serial Number",
+          align: "start",
           sortable: true,
-          value: 'Serial_Number'
+          value: "Serial_Number"
         },
-        { text: 'Date Inspected', value: 'Date_Inspected' }
+        { text: "Date Inspected", value: "Date_Inspected" }
       ],
       headers: [
         {
-          text: 'Item Number',
-          align: 'center',
+          text: "Item Number",
+          align: "center",
           sortable: true,
-          value: 'Item_No'
+          value: "Item_No"
         },
-        { text: 'Equipment', value: 'Equipment' },
-        { text: 'Site', value: 'Site' },
-        { text: 'Rig Ready', value: 'Rig_Ready' },
-        { text: 'Inspection', value: 'Inspection' },
-        { text: 'Booked', value: 'Booked' },
-        { text: 'Backlog', value: 'Backlog' },
-        { text: 'Wepco', value: 'Wepco' },
-        { text: 'Stamas', value: 'Stamas' },
-        { text: 'Hardbanding', value: 'Hardbanding' },
-        { text: 'Scrap', value: 'Scrap' },
-        { text: 'Limited Service', value: 'Limited_Service' },
-        { text: 'On Hold', value: 'On_Hold' },
-        { text: 'Other', value: 'Other' },
-        { text: 'Total Onshore', value: 'Total_Yard' },
-        { text: 'Certificates', sortable: false, value: 'action' }
+        { text: "Equipment", value: "Equipment" },
+        { text: "Site", value: "Site" },
+        { text: "Asset", value: "Asset" },
+        { text: "Rig Ready", value: "Rig_Ready" },
+        { text: "Inspection", value: "Inspection" },
+        { text: "Booked", value: "Booked" },
+        { text: "Backlog", value: "Backlog" },
+        { text: "Wepco", value: "Wepco" },
+        { text: "Stamas", value: "Stamas" },
+        { text: "NOV Norse", value: "Norse" },
+        { text: "Hardbanding", value: "Hardbanding" },
+        { text: "Scrap", value: "Scrap" },
+        { text: "Limited Service", value: "Limited_Service" },
+        { text: "Shipped", value: "Shipped" },
+        { text: "Total Onshore", value: "Total_Yard" },
+        { text: "Certificates", sortable: false, value: "action"}
       ],
       desserts: []
-    }
+    };
   },
-  mounted () {
-    this.test = true
+  mounted() {
+    this.test = true;
     axios
-      .get('/getInventory', {
+      .get("/getInventory", {
         params: { username: this.$store.getters.getUsername }
       })
       .then(response => {
-        console.log(response)
-        this.desserts = response.data
-        this.test = false
-      })
+        console.log(response);
+        this.desserts = response.data;
+        this.test = false;
+      });
   },
   methods: {
     computeColor(pipe) {
-      if(Object.keys(this.colormap).length !== 0) {
+      if (Object.keys(this.colormap).length !== 0) {
         return this.colormap[pipe].color;
       } else {
-        return 'white'
+        return "white";
       }
     },
-    getPDF (link) {
-      console.log(link.PDF)
-      window.open(link.PDF, '_blank')
+    getPDF(link) {
+      console.log(link.PDF);
+      window.open(link.PDF, "_blank");
     },
-    showRack (pipedata) {
-      this.pipeload = true
-      console.log(pipedata.Rack_Position)
-      this.Serialnr = pipedata.Serial_Number
+    showRack(pipedata) {
+      this.pipeload = true;
+      console.log(pipedata.Rack_Position);
+      this.Serialnr = pipedata.Serial_Number;
       axios
-        .get('/getPipes', {
+        .get("/getPipes", {
           params: { rackname: pipedata.Rack_Position }
         })
         .then(response => {
-          this.pipeload = false
-          console.log(response.data.rackinfo)
-          this.n = response.data.rackinfo.Maxrowcount
-          this.allpipes = response.data.pipes
-          this.rackinfo = response.data.rackinfo
-          this.colormap = response.data.colormap
-          this.dialog2 = true
-        })
+          this.pipeload = false;
+          console.log(response.data.rackinfo);
+          this.n = response.data.rackinfo.Maxrowcount;
+          this.allpipes = response.data.pipes;
+          this.rackinfo = response.data.rackinfo;
+          this.colormap = response.data.colormap;
+          this.dialog2 = true;
+        });
     },
-    clearList () {
-      this.numbers = []
-      this.dialog = false
-      this.dialog3 = false
-      this.Itemnr = null
+    clearList() {
+      this.numbers = [];
+      this.dialog = false;
+      this.dialog3 = false;
+      this.Itemnr = null;
     },
-    clearRack () {
-      this.dialog2 = false
-      this.n = null
-      this.allpipes = []
-      this.rackinfo = ''
+    clearRack() {
+      this.dialog2 = false;
+      this.n = null;
+      this.allpipes = [];
+      this.rackinfo = "";
     },
-    showPipes (item) {
+    showPipes(item) {
       if (item.Rig_Ready > 0) {
-        this.test = true
-        console.log(this.colormap)
+        this.test = true;
+        console.log(this.colormap);
         axios
-          .get('showPipelist', {
+          .get("showPipelist", {
             params: { itemnr: item.Item_No }
           })
           .then(response => {
-            console.log(response)
-            this.numbers = response.data
-            this.test = false
-            this.dialog = true
-            this.Itemnr = item.Item_No
-          })
+            console.log(response);
+            this.numbers = response.data;
+            this.test = false;
+            this.dialog = true;
+            this.Itemnr = item.Item_No;
+          });
       }
     },
-    getDateDiff: function (pipe) {
-      var now = moment(new Date())
-      var end = moment(pipe.Date_Inspected)
-      var duration = moment.duration(now.diff(end))
-      var days = duration.asDays()
-      return days
+    getDateDiff: function(pipe) {
+      var now = moment(new Date());
+      var end = moment(pipe.Date_Inspected);
+      var duration = moment.duration(now.diff(end));
+      var days = duration.asDays();
+      return days;
     },
-    showOtherPipes (item, location) {
-      console.log(location)
-      this.test = true
+    showOtherPipes(item, location) {
+      console.log(location);
+      this.test = true;
       axios
-        .get('/showOtherlist', {
+        .get("/showOtherlist", {
           params: { itemnr: item.Item_No, location: location }
         })
         .then(response => {
-          console.log(response)
-          this.numbers = response.data
-          this.test = false
-          this.dialog3 = true
-          this.location = location
-          this.Itemnr = item.Item_No
-        })
+          console.log(response);
+          this.numbers = response.data;
+          this.test = false;
+          this.dialog3 = true;
+          this.location = location;
+          this.Itemnr = item.Item_No;
+        });
     }
   },
   computed: {
-    ...mapGetters(['getUsername','getAsset','getFleet']),
-    divideRows () {
-      const chunkarray = []
-      const fullarray = this.allpipes
-      let i
-      let j
-      let temparray
-      const chunk = this.n
+    ...mapGetters(["getUsername", "getAsset", "getFleet"]),
+    divideRows() {
+      const chunkarray = [];
+      const fullarray = this.allpipes;
+      let i;
+      let j;
+      let temparray;
+      const chunk = this.n;
       // Change for several maxrowcounts
       for (i = 0, j = fullarray.length; i < j; i += chunk) {
-        temparray = fullarray.slice(i, i + chunk)
-        chunkarray.push(temparray)
+        temparray = fullarray.slice(i, i + chunk);
+        chunkarray.push(temparray);
       }
-      return chunkarray.reverse()
+      return chunkarray.reverse();
     },
     filterItems() {
       if (this.getFleet === true) {
@@ -644,7 +643,7 @@ export default {
       }
     }
   }
-}
+};
 </script>
 <style>
 .tooltippen {

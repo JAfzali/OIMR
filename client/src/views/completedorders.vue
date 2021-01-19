@@ -191,6 +191,7 @@ export default {
         { text: "Inspection date", value: "Return_Date" },
         { text: "Item no", value: "Item_No" },
         { text: "Equipment", value: "Equipment" },
+        { text: "PO Number", value: "Ref" },
         { text: "Qty", value: "QTY_Recived" },
         { text: "PDF", value: "action", sortable: false },
         { text: "Excel", value: "action1", sortable: false }
@@ -205,6 +206,7 @@ export default {
         { text: "Inspection date", value: "Return_Date" },
         { text: "Item no", value: "Item_No" },
         { text: "Equipment", value: "Equipment" },
+        { text: "PO Number", value: "Ref" },
         { text: "Qty", value: "QTY_Recived" },
         { text: "PDF", value: "action", sortable: false }
       ],
@@ -218,6 +220,7 @@ export default {
         { text: "Inspection date", value: "Return_Date" },
         { text: "Item no", value: "Item_No" },
         { text: "Equipment", value: "Equipment" },
+        { text: "PO Number", value: "Ref" },
         { text: "Excel", value: "action", sortable: false }
       ],
       orders: [],
