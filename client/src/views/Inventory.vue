@@ -142,21 +142,29 @@
                 </v-col>
                 <v-col>
                   <v-card :min-height="header_min_height" dark color="#3C7BC8">
-                    <v-row dense style="padding-top: 0; padding-bottom: 0;">
-                      <v-col style="padding-top: 0; padding-bottom: 0;">
                         <v-card-subtitle class="text-left text-subtitle-1">
                           Item Number
                         </v-card-subtitle>
-                      </v-col>
-                      <v-col style="padding-top: 0; padding-bottom: 0;">
+                    <v-menu open-on-hover offset-y left v-if="multiple_itemno.istrue">
+                      <template v-slot:activator="{ on, attrs }">
+                        <v-card-title
+                          dark
+                          v-bind="attrs"
+                          v-on="on"
+                          class="text-left text-h4"
+                        >
+                          <v-icon style="padding-right: 10px">mdi-chevron-down</v-icon> Total Items: {{ multiple_itemno.number }}
+                        </v-card-title>
+                      </template>
+                      <v-card color="#3C7BC8" dark flat>
                         <v-card-title
                           v-for="(key, value) in colormap"
                           :key="value"
-                          class="text-left"
+                          class="text-left text-h4"
                         >
                           <v-tooltip bottom>
                             <template v-slot:activator="{ on }">
-                              <v-icon dark v-on="on" medium>
+                              <v-icon dark v-on="on" medium left>
                                 info
                               </v-icon>
                             </template>
@@ -165,13 +173,52 @@
                               <b>{{value1}}:</b> {{key1}}
                             </div>
                           </v-tooltip>
-                          <span>{{ value }}</span>
-                          <v-icon small :style="{ color: computeColor(value) }">
+                          {{ value }}
+                          <v-icon :style="{ color: computeColor(value)}" style="padding-left: 5px" @mouseover="test">
                             brightness_1
                           </v-icon>
                         </v-card-title>
-                      </v-col>
-                    </v-row>
+                      </v-card>
+
+                    </v-menu>
+                    <v-card-title v-else v-for="(key, value) in colormap" :key="value" class="text-left text-h4">
+                      <v-tooltip bottom >
+                        <template v-slot:activator="{ on }">
+                          <v-icon dark v-on="on" medium left>
+                            info
+                          </v-icon>
+                        </template>
+                        <br/>
+                        <div class="tooltippen" v-for="(key1,value1) in key.iteminfo" :key="key1" >
+                          <b>{{value1}}:</b> {{key1}}
+                        </div>
+                      </v-tooltip>
+                      {{ value }}
+                      <v-icon :style="{ color: computeColor(value)}" style="padding-left: 5px">
+                        brightness_1
+                      </v-icon>
+                    </v-card-title>
+<!--                        <v-card-title-->
+<!--                          v-for="(key, value) in colormap"-->
+<!--                          :key="value"-->
+<!--                          class="text-left text-h4"-->
+<!--                        >-->
+<!--&lt;!&ndash;                          <v-tooltip bottom>&ndash;&gt;-->
+<!--&lt;!&ndash;                            <template v-slot:activator="{ on }">&ndash;&gt;-->
+<!--&lt;!&ndash;                              <v-icon dark v-on="on" medium>&ndash;&gt;-->
+<!--&lt;!&ndash;                                info&ndash;&gt;-->
+<!--&lt;!&ndash;                              </v-icon>&ndash;&gt;-->
+<!--&lt;!&ndash;                            </template>&ndash;&gt;-->
+<!--&lt;!&ndash;                            <br/>&ndash;&gt;-->
+<!--&lt;!&ndash;                            <div class="tooltippen" v-for="(key1,value1) in key.iteminfo" :key="key1" >&ndash;&gt;-->
+<!--&lt;!&ndash;                              <b>{{value1}}:</b> {{key1}}&ndash;&gt;-->
+<!--&lt;!&ndash;                            </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                          </v-tooltip>&ndash;&gt;-->
+<!--                          {{ value }}-->
+<!--                          <v-icon :style="{ color: computeColor(value)}" style="padding-left: 10px">-->
+<!--                            brightness_1-->
+<!--                          </v-icon>-->
+<!--                        </v-card-title>-->
                   </v-card>
                 </v-col>
               </v-row>
@@ -461,7 +508,7 @@ export default {
       pipe: {
         backgroundColor: 'pink'
       },
-      header_min_height: 130,
+      header_min_height: 135,
       colormap: '',
       rackinfo: '',
       pipeload: false,
@@ -475,6 +522,7 @@ export default {
       dialog2: false,
       dialog3: false,
       test: false,
+      multiple_itemno: {},
       search: '',
       search2: '',
       headers2: [
@@ -562,6 +610,8 @@ export default {
           this.allpipes = response.data.pipes
           this.rackinfo = response.data.rackinfo
           this.colormap = response.data.colormap
+          this.multiple_itemno.number = response.data.number_of_items
+          this.multiple_itemno.istrue = response.data.number_of_items > 1
           this.dialog2 = true
         })
     },
@@ -580,7 +630,6 @@ export default {
     showPipes (item) {
       if (item.Rig_Ready > 0) {
         this.test = true
-        console.log(this.colormap)
         axios
           .get('showPipelist', {
             params: { itemnr: item.Item_No }
@@ -642,6 +691,9 @@ export default {
           return item.Asset === this.getAsset;
         });
       }
+    },
+    check_itemnr() {
+      return this.colormap.length > 1
     }
   }
 }
