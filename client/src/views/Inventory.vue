@@ -145,7 +145,7 @@
                         <v-card-subtitle class="text-left text-subtitle-1">
                           Item Number
                         </v-card-subtitle>
-                    <v-menu open-on-hover offset-y left v-if="multiple_itemno.istrue">
+                    <v-menu open-on-hover offset-y left :close-on-content-click="false" v-if="multiple_itemno.istrue">
                       <template v-slot:activator="{ on, attrs }">
                         <v-card-title
                           dark
@@ -160,7 +160,7 @@
                         <v-card-title
                           v-for="(key, value) in colormap"
                           :key="value"
-                          class="text-left text-h4"
+                          class="text-left text-h6"
                         >
                           <v-tooltip bottom>
                             <template v-slot:activator="{ on }">
@@ -174,7 +174,7 @@
                             </div>
                           </v-tooltip>
                           {{ value }}
-                          <v-icon :style="{ color: computeColor(value)}" style="padding-left: 5px" @mouseover="test">
+                          <v-icon :style="{ color: computeColor(value)}" style="padding-left: 5px" @mouseover="addBorder(value)" @mouseleave="removeBorder">
                             brightness_1
                           </v-icon>
                         </v-card-title>
@@ -198,27 +198,6 @@
                         brightness_1
                       </v-icon>
                     </v-card-title>
-<!--                        <v-card-title-->
-<!--                          v-for="(key, value) in colormap"-->
-<!--                          :key="value"-->
-<!--                          class="text-left text-h4"-->
-<!--                        >-->
-<!--&lt;!&ndash;                          <v-tooltip bottom>&ndash;&gt;-->
-<!--&lt;!&ndash;                            <template v-slot:activator="{ on }">&ndash;&gt;-->
-<!--&lt;!&ndash;                              <v-icon dark v-on="on" medium>&ndash;&gt;-->
-<!--&lt;!&ndash;                                info&ndash;&gt;-->
-<!--&lt;!&ndash;                              </v-icon>&ndash;&gt;-->
-<!--&lt;!&ndash;                            </template>&ndash;&gt;-->
-<!--&lt;!&ndash;                            <br/>&ndash;&gt;-->
-<!--&lt;!&ndash;                            <div class="tooltippen" v-for="(key1,value1) in key.iteminfo" :key="key1" >&ndash;&gt;-->
-<!--&lt;!&ndash;                              <b>{{value1}}:</b> {{key1}}&ndash;&gt;-->
-<!--&lt;!&ndash;                            </div>&ndash;&gt;-->
-<!--&lt;!&ndash;                          </v-tooltip>&ndash;&gt;-->
-<!--                          {{ value }}-->
-<!--                          <v-icon :style="{ color: computeColor(value)}" style="padding-left: 10px">-->
-<!--                            brightness_1-->
-<!--                          </v-icon>-->
-<!--                        </v-card-title>-->
                   </v-card>
                 </v-col>
               </v-row>
@@ -227,10 +206,11 @@
               <table>
                 <tr v-for="list in divideRows" :key="list">
                   <td
-                    :style="{ backgroundColor: computeColor(pipe.Item_No) }"
+                    ref="box"
                     class="tdclass"
                     v-for="pipe in list"
                     :key="pipe"
+                    :bgcolor="computeColor(pipe.Item_No)"
                   >
                     <v-tooltip bottom>
                       <template v-slot:activator="{ on, attrs }">
@@ -584,6 +564,30 @@ export default {
       })
   },
   methods: {
+    addBorder(value) {
+      let color = this.computeColor(value)
+      let elements = this.$refs.box
+
+      for (var i = 0; i < elements.length; i++) {
+        if (color === elements[i].bgColor) {
+          elements[i].style.border = "5px solid black"
+        } else {
+          elements[i].style.border = ""
+          elements[i].classList.add("tdclass")
+        }
+      }
+
+      console.log(color)
+      console.log(elements.bgColor)
+    },
+    removeBorder() {
+      let elements = this.$refs.box
+
+      for (var i = 0; i < elements.length; i++) {
+        elements[i].style.border = ""
+        elements[i].classList.add("tdclass")
+      }
+    },
     computeColor(pipe) {
       if(Object.keys(this.colormap).length !== 0) {
         return this.colormap[pipe].color;
@@ -710,6 +714,11 @@ table {
 }
 .tdclass {
   border: 1px solid black;
+  padding: 1px;
+}
+
+.activeBox {
+  border: 5px solid red;
   padding: 1px;
 }
 
