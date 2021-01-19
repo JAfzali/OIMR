@@ -142,21 +142,29 @@
                 </v-col>
                 <v-col>
                   <v-card :min-height="header_min_height" dark color="#3C7BC8">
-                    <v-row dense style="padding-top: 0; padding-bottom: 0;">
-                      <v-col style="padding-top: 0; padding-bottom: 0;">
                         <v-card-subtitle class="text-left text-subtitle-1">
                           Item Number
                         </v-card-subtitle>
-                      </v-col>
-                      <v-col style="padding-top: 0; padding-bottom: 0;">
+                    <v-menu open-on-hover offset-y left :close-on-content-click="false" v-if="multiple_itemno.istrue">
+                      <template v-slot:activator="{ on, attrs }">
+                        <v-card-title
+                          dark
+                          v-bind="attrs"
+                          v-on="on"
+                          class="text-left text-h4"
+                        >
+                          <v-icon style="padding-right: 10px">mdi-chevron-down</v-icon> Total Items: {{ multiple_itemno.number }}
+                        </v-card-title>
+                      </template>
+                      <v-card color="#3C7BC8" dark flat>
                         <v-card-title
                           v-for="(key, value) in colormap"
                           :key="value"
-                          class="text-left"
+                          class="text-left text-h6"
                         >
                           <v-tooltip bottom>
                             <template v-slot:activator="{ on }">
-                              <v-icon dark v-on="on" medium>
+                              <v-icon dark v-on="on" medium left>
                                 info
                               </v-icon>
                             </template>
@@ -165,13 +173,31 @@
                               <b>{{value1}}:</b> {{key1}}
                             </div>
                           </v-tooltip>
-                          <span>{{ value }}</span>
-                          <v-icon small :style="{ color: computeColor(value) }">
+                          {{ value }}
+                          <v-icon :style="{ color: computeColor(value)}" style="padding-left: 5px" @mouseover="addBorder(value)" @mouseleave="removeBorder">
                             brightness_1
                           </v-icon>
                         </v-card-title>
-                      </v-col>
-                    </v-row>
+                      </v-card>
+
+                    </v-menu>
+                    <v-card-title v-else v-for="(key, value) in colormap" :key="value" class="text-left text-h4">
+                      <v-tooltip bottom >
+                        <template v-slot:activator="{ on }">
+                          <v-icon dark v-on="on" medium left>
+                            info
+                          </v-icon>
+                        </template>
+                        <br/>
+                        <div class="tooltippen" v-for="(key1,value1) in key.iteminfo" :key="key1" >
+                          <b>{{value1}}:</b> {{key1}}
+                        </div>
+                      </v-tooltip>
+                      {{ value }}
+                      <v-icon :style="{ color: computeColor(value)}" style="padding-left: 5px">
+                        brightness_1
+                      </v-icon>
+                    </v-card-title>
                   </v-card>
                 </v-col>
               </v-row>
@@ -180,10 +206,11 @@
               <table>
                 <tr v-for="list in divideRows" :key="list">
                   <td
-                    :style="{ backgroundColor: computeColor(pipe.Item_No) }"
+                    ref="box"
                     class="tdclass"
                     v-for="pipe in list"
                     :key="pipe"
+                    :bgcolor="computeColor(pipe.Item_No)"
                   >
                     <v-tooltip bottom>
                       <template v-slot:activator="{ on, attrs }">
@@ -461,7 +488,7 @@ export default {
       pipe: {
         backgroundColor: 'pink'
       },
-      header_min_height: 130,
+      header_min_height: 135,
       colormap: '',
       rackinfo: '',
       pipeload: false,
@@ -475,6 +502,7 @@ export default {
       dialog2: false,
       dialog3: false,
       test: false,
+      multiple_itemno: {},
       search: '',
       search2: '',
       headers2: [
@@ -536,6 +564,30 @@ export default {
       })
   },
   methods: {
+    addBorder(value) {
+      let color = this.computeColor(value)
+      let elements = this.$refs.box
+
+      for (var i = 0; i < elements.length; i++) {
+        if (color === elements[i].bgColor) {
+          elements[i].style.border = "5px solid black"
+        } else {
+          elements[i].style.border = ""
+          elements[i].classList.add("tdclass")
+        }
+      }
+
+      console.log(color)
+      console.log(elements.bgColor)
+    },
+    removeBorder() {
+      let elements = this.$refs.box
+
+      for (var i = 0; i < elements.length; i++) {
+        elements[i].style.border = ""
+        elements[i].classList.add("tdclass")
+      }
+    },
     computeColor(pipe) {
       if(Object.keys(this.colormap).length !== 0) {
         return this.colormap[pipe].color;
@@ -562,6 +614,8 @@ export default {
           this.allpipes = response.data.pipes
           this.rackinfo = response.data.rackinfo
           this.colormap = response.data.colormap
+          this.multiple_itemno.number = response.data.number_of_items
+          this.multiple_itemno.istrue = response.data.number_of_items > 1
           this.dialog2 = true
         })
     },
@@ -580,7 +634,6 @@ export default {
     showPipes (item) {
       if (item.Rig_Ready > 0) {
         this.test = true
-        console.log(this.colormap)
         axios
           .get('showPipelist', {
             params: { itemnr: item.Item_No }
@@ -642,6 +695,9 @@ export default {
           return item.Asset === this.getAsset;
         });
       }
+    },
+    check_itemnr() {
+      return this.colormap.length > 1
     }
   }
 }
@@ -658,6 +714,11 @@ table {
 }
 .tdclass {
   border: 1px solid black;
+  padding: 1px;
+}
+
+.activeBox {
+  border: 5px solid red;
   padding: 1px;
 }
 
