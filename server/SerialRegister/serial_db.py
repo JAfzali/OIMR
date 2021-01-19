@@ -297,9 +297,9 @@ def db_getPipes(rackname):
         valuedict['iteminfo'] = itemdict
         colormap[key] = valuedict
 
-
+    Rackdict['number_of_items'] = len(colormap)
     Rackdict['colormap'] = colormap
-    print(colormap)
+    print(len(colormap))
 
     return Rackdict
 
