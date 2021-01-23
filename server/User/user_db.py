@@ -16,7 +16,7 @@ userdict = {
 def getUserName(email):
     userDB.conn.login()
     findquery = [
-        {"Customer_Email": f"=={email}"}
+        {"ODP_Customer_Register_Representatives::Customer_Email": f"=={email}"}
     ]
     sortby = [
         {"fieldName": "Customer_Email", "sortOrder": "ascend"}
@@ -29,7 +29,7 @@ def getUserInfo(email):
     assetlist = []
     userDB.conn.login()
     findquery = [
-        {"Customer_Email": f"=={email}"}
+        {"ODP_Customer_Register_Representatives::Customer_Email": f"=={email}"}
     ]
     sortby = [
         {"fieldName": "Customer_Email", "sortOrder": "ascend"}
